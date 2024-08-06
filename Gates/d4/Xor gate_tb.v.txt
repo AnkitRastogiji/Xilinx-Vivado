@@ -1,0 +1,21 @@
+`timescale 1ns / 1ps
+
+module Xor_gate_tb();
+reg A;
+reg B;
+wire Out;
+Xor_gate dut(.A(A), .B(B), .Out(Out));
+//DUT (design under test) - used in post validation of the silicon once the chip is fabricated or hardware design 
+initial begin
+
+A = 0; B = 0;
+#10 // 10  nano delay
+A = 0; B = 1;
+#10 // 20 nano delay
+A = 1; B = 0;
+#10 // 30 nano delay
+A = 1; B = 1;
+#10 // 40 nano delay
+$finish;
+end
+endmodule
