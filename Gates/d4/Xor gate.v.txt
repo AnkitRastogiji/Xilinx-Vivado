@@ -1,0 +1,14 @@
+`timescale 1ns / 1ps
+//Design for data flow modeling
+
+// Xor- If I/p  are same then O/p is zero and both are complement then O/p is high.
+//Xor Gate does not hold distributive law over "OR" operation or over "AND" operation.
+module Xor_gate(Out, A, B);
+input A, B;
+output Out;
+assign Out = (A ^ B);
+
+//gate level modeling 
+// Xor G1(Out, A, B);
+
+endmodule
