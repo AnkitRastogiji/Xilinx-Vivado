@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+// For NOR gate i/p is high then o/p is low and both i/p are low then o/p is high.
+
+module NOR_gate_tb();
+reg A , B; // reg represent data storage element and hold a value
+wire Y; // It must be continuously driven and represent connection between h/w design
+
+NOR_gate dut(.A(A), .B(B), .Y(Y));
+// [.A] means dut(design under test) and [A] means test bench.
+initial 
+begin
+A = 0; B = 0;
+#10 // delay 10 ns
+A = 0; B = 1;
+#10 // delay 20 ns
+A = 1; B = 0;
+#10 // delay 30 ns
+A = 1; B = 1;
+#10 // delay 40 ns
+
+$finish;
+end
+endmodule
