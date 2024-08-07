@@ -1,0 +1,12 @@
+`timescale 1ns / 1ps
+// NOR - nor gate are the complement of or gate and it a universal logic
+
+// Using data flow modeling
+module NOR_gate(A, B, Y);
+input A , B;
+output Y;
+assign Y = !(A | B);
+// Using gate level modeling
+//NOR G1(Y, A, B); replace assign line
+
+endmodule
