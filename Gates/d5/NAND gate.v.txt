@@ -1,0 +1,12 @@
+`timescale 1ns / 1ps
+
+//NAND :- For nand gate any i/p is low then o/p is high and both i/p is high then o/p is low
+//Using data flow modeling
+
+module NAND_gate(A, B, Z);
+input A , B;
+output Z;
+assign Z = !(A & B);
+//for using gate level modeling 
+// NAND G1(Z, A, B);
+endmodule
