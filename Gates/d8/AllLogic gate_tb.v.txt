@@ -1,0 +1,20 @@
+`timescale 1ns / 1ps
+
+module AllLogic_gate_tb();
+reg A, B;
+wire Yn, Ya, Yo, Yxo, Yna, Yno, Yxn;
+AllLogic_gate dut(.A(A), .B(B), .Yn(Yn), .Ya(Ya), .Yo(Yo), .Yxo(Yxo), .Yna(Yna), .Yno(Yno), .Yxn(Yxn));
+//dut(Design Under Test)
+initial 
+begin
+A = 0; B = 0;
+#10 // delay 10 ns
+A = 0; B = 1;
+#10 // delay 20 ns
+A = 1; B = 0;
+#10 // delay 30 ns
+A = 1; B = 1;
+#10 // delay 40 ns
+$finish;
+end
+endmodule
