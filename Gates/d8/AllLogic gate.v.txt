@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+// Using data flow modeling 
+module AllLogic_gate(A , B, Yn, Ya, Yo, Yxo, Yna, Yno, Yxn);
+input A , B;
+output Yn, Ya, Yo, Yxo, Yna, Yno, Yxn;
+
+assign Yn = !A; // not gate
+assign Ya = A & B; // and gate
+assign Yo = A | B; // or gate
+assign Yxo = A ^ B; // Xor gate
+assign Yna = !(A & B); // nand gate
+assign Yno = !(A | B); // nor gate
+assign Yxn = !(A ^ B); // xnor gate
+// assign replace by gate level moedling
+// NOT G1(Yn , A);
+// AND G2(Ya , A, B);
+// OR G3(Yo, A, B);
+// XOR G4(Yxo, A, B);
+// NAND G5(Yna, A, B);
+// NOR G6(Yno, A, B);
+// XNOR G7(Yxn, A, B);
+endmodule
