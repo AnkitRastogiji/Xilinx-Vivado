@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+
+//XNOR are follow the commutative law and associative law.
+//For odd no. XOR and XNOR gate are same and even no. then XOR and XNOR are complement of each other.
+//using data flow modeling 
+module XNOR_gate(A, B, Z);
+input A , B;
+output Z;
+assign Z = !(A ^ B);
+
+// For using gate level modeling
+// XNOR G1(Z, A, B); // replace by assign 
+endmodule
