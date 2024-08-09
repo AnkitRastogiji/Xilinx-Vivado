@@ -1,0 +1,9 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling
+module Not_gate_bh(A, Y);
+input A;
+output reg Y;
+ // repeat continuously through simulation time.
+always @(A) // (A) sensitivity list
+Y = ~A;
+endmodule 
