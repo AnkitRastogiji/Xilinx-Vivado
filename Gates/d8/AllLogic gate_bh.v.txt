@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+//using behavioral modeling
+module AllLogic_gate_bh(A ,B, Yn, Ya, Yo, Yxo, Yna, Yno, Yxn);
+input A, B;
+output reg Yn, Ya, Yo, Yxo, Yna, Yno, Yxn;
+
+always @(A, B)
+begin
+Yn = ~A;
+Ya = (A & B);
+Yo = (A | B);
+Yxo = (A ^ B);
+Yna = !(A & B);
+Yno = !(A | B);
+Yxn = !(A ^ B);
+end
+endmodule
