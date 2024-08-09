@@ -1,0 +1,9 @@
+`timescale 1ns / 1ps
+//Using behavioral modeling 
+
+module NAND_gate_bh(A ,B, Y);
+input A ,B;
+output reg Y;
+always @(A, B)
+Y = !(A & B);
+endmodule
