@@ -1,0 +1,12 @@
+`timescale 1ns / 1ps
+// Using Behavioral modeling 
+
+module Half_Adder_bh(A, B, Sum, Carry);
+input A, B;
+output reg Sum, Carry;
+always @(A, B)
+begin
+Sum = (A ^ B); // XOR gate 
+Carry = (A & B); // AND gate
+end
+endmodule
