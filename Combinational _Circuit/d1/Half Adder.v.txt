@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// HA: - designed by 1 XOR and 1 AND gate. It has 2 i/p (A & B) generate the Sum and Carry.
+//Using Data flow modeling
+
+module Half_Adder(A ,B, Sum, Carry);
+input A, B;
+output Sum, Carry;
+assign Sum = (A ^ B);
+assign Carry = (A & B);
+// Using gate level modeling replace by assign
+// XOR G1(A ^ B);
+// AND G2(A & B);
+endmodule
