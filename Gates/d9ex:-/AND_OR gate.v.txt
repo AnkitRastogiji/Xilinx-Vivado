@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// Using data flow modeling
+// Example: (A & B) | C
+module AND_OR_gate(A, B, C, Out);
+input A, B, C;
+output Out;
+wire E;
+
+//and G1(E, A, B);    // AND gate: E = A & B
+//or G2(Out, E, C);   // OR gate: Out = E | C
+assign E = A & B;
+assign Out = E | C;
+endmodule
