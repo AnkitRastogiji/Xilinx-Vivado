@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+// Using Data flow modeling 
+// FA:- 2 AND and 2 XOR gate are connected 3 i/p  (A, B, Cin) and 2 output (Sum, Carry). 
+module Full_Adder(A, B, Cin, Sum, Carry);
+input A, B, Cin;
+output Sum, Carry;
+assign Sum = A ^ B ^ Cin;
+assign Carry = (A & B) | (B & Cin) | (A & Cin);
+// using gate level modeling  replace assign
+
+//wire W1, W2, W3;
+//xor(W1, A, B);
+//and(W2, A, B);
+//xor(Sum, W1, A);
+//and(W3, W1, Cin);
+//or(Carry, W2, W3);
+endmodule
