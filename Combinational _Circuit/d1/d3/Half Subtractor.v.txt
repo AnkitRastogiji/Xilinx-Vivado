@@ -1,0 +1,19 @@
+`timescale 1ns / 1ps
+// Using gate level modeling
+// An HS consider only 2 i/p and 2 o/p . HS just opposite of half Adder it generate borrow and difference
+module Half_Subtractor(A, B, Diff, Borr);
+input A, B;
+output Diff, Borr;
+wire W1;
+xor G1(Diff, A, B);
+not(W1, A);
+and(Borr, W1, B);
+
+endmodule
+------------------------------------------------------------------
+
+//using data flow modeling 
+module half_subtractor(input a, b, output Diff, Borr);
+  assign Diff = (a ^ b);
+  assign Borr = ~(a & b);
+endmodule
