@@ -1,0 +1,11 @@
+`timescale 1ns / 1ps
+
+module Half_Subtractor_bh(A, B, Diff, Borr);
+input A, B;
+output reg Diff, Borr;
+always @(A, B)
+begin
+  Diff = (A ^ B); // xor gate
+  Borr = ~(A & B); // NOT and AND gate
+end
+endmodule
