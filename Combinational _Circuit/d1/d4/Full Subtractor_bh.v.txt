@@ -1,0 +1,11 @@
+`timescale 1ns / 1ps
+
+module Full_Subtractor_bh(A, B, Cin, Diff, Borr); 
+input A, B, Cin;
+output reg Diff, Borr;
+always @(A, B, Cin) // sensitivity list inside always
+begin
+Diff = (A ^ B ^ Cin);
+Borr = (~A & B) | (B & Cin) | (~A & Cin);
+end
+endmodule
