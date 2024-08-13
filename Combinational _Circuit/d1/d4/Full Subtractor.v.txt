@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// Using gate level modeling 
+// FS:- It is a combinational circuit that it is used to 3 i/p and generate 2 o/p (difference & borrow). 
+module Full_Subtractor(A, B, Cin, Diff, Borr);
+input A, B, Cin;
+output Diff, Borr;
+not N1(Abar, A);
+xor X1(Diff, A, B, Cin);
+and A1(l, Abar, B); // l  = Abar.B
+and A2(m, Abar, Cin); // m = Abar.Cin
+and A3(n, B, Cin); // n = B.Cin
+or O1(Borr, l, m, n);
+endmodule
