@@ -1,0 +1,9 @@
+`timescale 1ns / 1ps
+
+module Full_Subtractor_DFM(A, B, Cin, Diff, Borr); 
+input A, B, Cin;
+output Diff, Borr;
+assign Diff = (A ^ B ^ Cin);
+assign Borr = (~A & B) | (B & Cin) | (~A & Cin); 
+//~ represent NOT gate , & represent AND gate and | represent OR gate.
+endmodule
