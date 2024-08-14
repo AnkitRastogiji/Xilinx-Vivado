@@ -1,0 +1,11 @@
+`timescale 1ns / 1ps
+
+module F_A_using_H_A_bh(A, B, Cin, Sum, Carry);
+input A, B, Cin;
+output reg Sum, Carry;
+always @(A, B, Cin) // senstivity list inside always @
+begin
+Sum = A ^ B ^ Cin; // XOR gate are perform for 2 HA
+Carry = (A & B) | Cin & (A ^ B); 
+end
+endmodule
