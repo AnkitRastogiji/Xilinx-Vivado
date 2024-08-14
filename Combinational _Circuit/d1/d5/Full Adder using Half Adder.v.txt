@@ -1,0 +1,10 @@
+`timescale 1ns / 1ps
+// Using data flow modeling
+// FA using HA:- It is 2 i/p are connected in 1st HA and 1st HA o/p and 3rd i/p are connected in 2nd HA.
+// Generate 2 o/p Sum and Carry
+module F_A_using_H_A(A, B, Cin, Sum, Carry);
+input A, B, Cin;
+output Sum, Carry;
+assign Sum = A ^ B ^ Cin;
+assign Carry = (A & B) | Cin & (A ^ B);
+endmodule
