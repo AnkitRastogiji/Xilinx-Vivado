@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+module F_A_using_H_A_GLM(A, B, Cin, Sum, Carry);
+input A, B, Cin;
+output Sum, Carry;
+wire l, m, n;
+
+    // l = A ^ B, m = A & B
+    half_Adder h1(.Sum(l), .Carry(m), .A(A), .B(B));
+
+    // Sum = l ^ Cin, n = l & Cin
+    half_Adder h2(.Sum(Sum), .Carry(n), .A(l), .B(Cin));
+  
+    // OR gate Carry = m | n
+    or O1(Carry, m, n);
+endmodule
+
+// Half Adder module
+module half_Adder(Sum, Carry, A, B);
+    input A, B;
+    output Sum, Carry;
+
+    xor (Sum, A, B);  // Sum = A ^ B
+    and (Carry, A, B);  // Carry = A & B
+endmodule
