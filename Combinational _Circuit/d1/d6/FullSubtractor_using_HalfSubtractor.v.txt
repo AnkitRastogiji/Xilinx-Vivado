@@ -1,0 +1,25 @@
+`timescale 1ns / 1ps
+// using gate level modeling 
+// 3 i/p are generating 2 o/p difference and borrow
+module FullSub_using_HalfSub(A, B, Cin, Diff, Borr);
+input A, B, Cin;
+output Diff, Borr;
+wire l, m, n;
+//1st Half Subtractor
+// l = A ^ B
+// m = ~A & B
+half_Sub h1(.Diff(l), .Borr(m), .A(A), .B(B));
+//2nd Half Subtractor
+// diff = A ^ B ^ Cin
+// n = (~(A ^ B)) & Cin
+half_Sub h2(.Diff(Diff), .Borr(n), .A(l), .B(Cin));
+// borr = m | n
+or O1(Borr, m, n);
+
+endmodule
+module half_Sub(A, B, Diff, Borr);
+input A, B;
+output Diff, Borr;
+xor (Diff, A, B);
+and (Borr, ~A, B);
+endmodule
