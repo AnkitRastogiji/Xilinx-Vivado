@@ -1,0 +1,12 @@
+`timescale 1ns / 1ps
+// using behavioral modeling
+
+module FullSub_using_HalfSub_bh(A, B, Cin, Diff, Borr);
+input A, B, Cin;
+output reg Diff, Borr;
+always @(A, B, Cin)
+begin
+Diff = A ^ B ^ Cin;
+Borr = (~A) & B | (~(A ^ B)) & Cin;
+end
+endmodule
