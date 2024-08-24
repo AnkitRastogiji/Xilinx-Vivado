@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+
+module RCA_4bit_bh(
+    input [3:0] A,
+    input [3:0] B,
+    input Cin,
+    output reg [3:0] Sum,
+    output reg Cout
+    );
+    
+    reg C1, C2, C3; // Internal carry signals
+
+    always @(A, B, Cin) begin
+        // Calculate sum and propagate carries manually
+        Sum[0] = A[0] ^ B[0] ^ Cin; // xor gate 
+        C1 = (A[0] & B[0]) | (A[0] & Cin) | (B[0] & Cin); // AND and OR gate 
+        
+        Sum[1] = A[1] ^ B[1] ^ C1; // xor gate 
+        C2 = (A[1] & B[1]) | (A[1] & C1) | (B[1] & C1); // AND and OR gate 
+        
+        Sum[2] = A[2] ^ B[2] ^ C2; // xor gate
+        C3 = (A[2] & B[2]) | (A[2] & C2) | (B[2] & C2); // AND and OR gate
+        
+        Sum[3] = A[3] ^ B[3] ^ C3; // xor gate
+        Cout = (A[3] & B[3]) | (A[3] & C3) | (B[3] & C3); // AND and OR gate
+    end
+endmodule
