@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+// using gate level modeling 
+module Multiplexer_4X1(I0, I1, I2, I3, S0, S1, Cout);
+input I0, I1, I2, I3, S0, S1;
+output Cout;
+wire l, m, n, o, p, q;
+not g1(l, S0);
+not g2(m, S1);
+and a1(n, I0, l, m);
+and a2(o, I1, m, S0);
+and a3(p, I2, S1, l);
+and a4(q, I3, S1, S0);
+or o1(Cout, n, o, p, q);
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`timescale 1ns / 1ps
+// using data flow modeling
+module Multiplexer_4X1(I0, I1, I2, I3, S0, S1, Cout);
+input I0, I1, I2, I3, S0, S1;
+output Cout;
+assign Cout = (~S1 & ~S0 & I0) | (~S1 & S0 & I1) | (S1 & ~S0 & I2) | (S1 & S0 & I3);
+endmodule
