@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+
+module Multiplexer_4X1(
+input I0, I1, I2, I3, S0, S1,
+output reg Cout
+);
+always @(*) 
+begin
+  case ({S1, S0})
+      2'b00: Cout = I0;
+      2'b01: Cout = I1;
+      2'b10: Cout = I2;
+      2'b11: Cout = I3;
+      default: Cout = 1'b0;  // Default case, though technically not needed
+   endcase
+   end
+endmodule
