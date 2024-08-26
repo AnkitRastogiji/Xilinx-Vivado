@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+// Using gate level modeling 
+// Multiplexer is a combinational ckt that it is multiple input generate only one o/p(Many to one).
+// It reduces no. of wire, ckt complexity and cost.
+module Multiplexer_2X1(I0, I1, S0, Cout);
+input I0, I1, S0;
+output Cout;
+wire l, m, n;
+  not N1(l, S0); // l = ~S0
+  and A1(m, I0, l); // m = I0 & l
+  and A2(n, I1, S0); // n = I1 & S0
+  or O1(Cout, m, n); // Cout = m & n
+endmodule
+
+-----------------------------------------------------------------------------------------------------------
+  
+//using data flow modeling 
+module Multiplexer_2X1(I0, I1, S0, Cout);
+input I0, I1, S0;
+output Cout;
+assign Cout = (~S0 & I0) | (S0 & I1);
+
+endmodule
