@@ -1,0 +1,20 @@
+`timescale 1ns / 1ps
+
+module Multiplexer_8X1_bh(
+input I0, I1, I2, I3, I4, I5, I6, I7, S0, S1, S2 , 
+output reg Cout
+);
+    always @(*) begin
+        case ({S2, S1, S0})  
+            3'b000: Cout = I0;
+            3'b001: Cout = I1;
+            3'b010: Cout = I2;
+            3'b011: Cout = I3;
+            3'b100: Cout = I4;
+            3'b101: Cout = I5;
+            3'b110: Cout = I6;
+            3'b111: Cout = I7;
+            default: Cout = 1'b0;  // Default case for safety
+        endcase
+    end
+endmodule
