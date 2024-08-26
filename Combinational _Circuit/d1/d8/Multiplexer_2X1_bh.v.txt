@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+
+module Multiplexer_2X1_bh(I0, I1, S0, Cout);
+input I0, I1, S0;
+output reg Cout;
+always @(*)
+begin 
+    if(S0)
+        Cout = I1;
+    else
+        Cout = I0;
+    end
+endmodule
