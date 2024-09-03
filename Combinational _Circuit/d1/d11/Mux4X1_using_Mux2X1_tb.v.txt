@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+module Mux4X1_using_Mux2X1_tb();
+    reg I0, I1, I2, I3, S0, S1;
+    wire Cout;
+    
+    Mux4X1_using_Mux2X1 dut(.I0(I0), .I1(I1), .I2(I2), .I3(I3), .S0(S0), .S1(S1), .Cout(Cout));
+    initial
+        begin
+        //test cases
+        S1 = 0; S0 = 0;
+        I0 = 1; I1 = 0; I2 = 0; I3 = 0;
+        #10 // delay 10 ns
+        
+        S1 = 0; S0 = 1;
+        I0 = 0; I1 = 1; I2 = 0; I3 = 0;
+        #10 // delay 20 ns
+        
+        S1 = 1; S0 = 0;
+        I0 = 0; I1 = 0; I2 = 1; I3 = 0;
+        #10 // delay 30 ns
+        
+        S1 = 1; S0 = 1;
+        I0 = 0; I1 = 0; I2 = 0; I3 = 1;
+        #10 // delay 40 ns
+        $finish;
+    end
+endmodule
