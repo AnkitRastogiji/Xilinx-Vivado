@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// using  data flow modeling 
+module Mux4X1_using_Mux2X1(
+    input I0, I1, I2, I3, S0, S1,
+    output Cout
+);
+wire mux_1, mux_2;
+assign mux_1 = (~S1 & I0) | (S1 & I1); // 1st 2X1 solution 
+assign mux_2 = (~S1 & I2) | (S1 & I3); // 2nd 2X1 solution 
+
+assign Cout = (~S0 & mux_1) | (S0 & mux_2);
+
+endmodule
