@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module Demux_1X2_tb();
+    reg I, E, S;
+    wire Y0, Y1;
+    Demux_1X2 dut(.I(I), .E(E), .S(S), .Y0(Y0), .Y1(Y1));
+    initial
+    begin
+        //test cases
+        S = 0; I = 1; E = 1;
+        #10 //delay 10 ns
+        S = 1; I = 1; E = 1;
+        #10 //delay 20 ns
+        S = 0; I = 0; E = 1;
+        #10 // delay 30 ns
+        S = 1; I = 0; E = 1;
+        #10 // delay 40 ns
+        S = 0; I = 1; E = 0;
+        #10 // delay 50 ns
+        $finish;
+    end    
+endmodule
