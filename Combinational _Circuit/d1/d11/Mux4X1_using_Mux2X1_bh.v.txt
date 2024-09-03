@@ -1,0 +1,26 @@
+`timescale 1ns / 1ps
+
+module Mux4X1_using_Mux2X1_bh(
+    input I0, I1, I2, I3, S0, S1,
+    output reg Cout
+    );
+    reg mux_1, mux_2;
+    always @(*)
+    begin
+        //using conditional statement
+        if(S1 == 0) 
+            mux_1 = I0;
+        else
+            mux_1 = I1; // 1st 2X1 mux
+            
+        if(S1 == 0)
+            mux_1 = I2;
+        else
+            mux_1 = I3; // 2nd 2X1 mux
+            
+        if(S0 == 0)
+            Cout = mux_1;
+        else
+            Cout = mux_2; // 1st and 2nd create mux
+        end
+endmodule
