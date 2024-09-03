@@ -1,0 +1,42 @@
+`timescale 1ns / 1ps
+
+module Mux8X1_using_Mux2X1_bh(
+        input I0, I1, I2, I3, I4, I5, I6, I7, S0, S1, S2,
+        output reg Cout
+    );
+    reg mux1, mux2, mux3, mux4, mux12, mux34;
+    always @(*)
+        begin
+        // for block 1 only
+        if(S0 == 0) 
+            mux1 = I0;
+        else
+            mux1 = I1;
+        if(S0 == 0)
+            mux2 = I2;
+        else
+            mux2 = I3;
+        if(S0 == 0)
+            mux3 = I4;
+        else
+            mux3 = I5;
+        if(S0 == 0)
+            mux4 = I6;
+        else
+            mux4 = I7;
+        // for block 2 only
+        if(S1 == 0)
+            mux12 = mux1;
+        else
+            mux12 = mux2;
+        if(S1 == 0)
+            mux34 = mux3;
+        else
+            mux34 = mux4;
+        // for block 3 only
+        if(S2 == 0)
+            Cout = mux12;
+        else
+            Cout = mux34;
+        end    
+endmodule
