@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+
+module Demux_1X2_bh(
+        input I, E, S,
+        output reg Y0, Y1
+    );
+    always @(*)
+    begin
+    if(S == 1'b0) begin
+        Y0 = I;
+        Y1 = 0;
+    end else begin
+        Y0 = 0;
+        Y1 = I;
+        end
+    end
+endmodule
