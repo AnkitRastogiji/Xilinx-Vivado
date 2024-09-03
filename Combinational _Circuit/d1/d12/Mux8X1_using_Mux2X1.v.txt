@@ -1,0 +1,20 @@
+`timescale 1ns / 1ps
+// using data flow modeling 
+module Mux8X1_using_Mux2X1(
+        input I0, I1, I2, I3, I4, I5, I6, I7, S0, S1, S2,
+        output Cout
+    );
+    wire mux1, mux2, mux3, mux4, mux12, mux34;
+    //1st block
+    assign mux1 = (~S0 & I0) | (~S0 & I1);
+    assign mux2 = (~S0 & I2) | (~S0 & I3);
+    assign mux3 = (~S0 & I4) | (~S0 & I5);
+    assign mux4 = (~S0 & I6) | (~S0 & I7);
+    
+    //2nd block
+    assign mux12 = (~S1 & mux1) | (~S1 & mux2);
+    assign mux34 = (~S1 & mux3) | (~S1 & mux4);
+    
+    //3rd block
+    assign Cout = (~S2 & mux12) | (~S2 & mux34);
+endmodule
