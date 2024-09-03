@@ -1,0 +1,26 @@
+`timescale 1ns / 1ps
+// using gate level modeling 
+// It is a combinational ckt that is reverse of multiplexer also called as data distribution.
+// One i/p and many o/p 
+
+module Demux_1X2(
+        input I, E, S,
+        output Y0, Y1
+    );
+    wire l;
+    not N1(l, S);
+    and A1(Y0, I, E, l);
+    and A2(Y1, I, E, S);
+    
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// using data flow modeling
+module Demux_1X2(
+        input I, E, S,
+        output Y0, Y1
+    );
+    assign Y0 = I & E & ~S;
+    assign Y1 = I & E & S;
+    
+endmodule
