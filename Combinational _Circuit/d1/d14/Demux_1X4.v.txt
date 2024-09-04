@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// data flow modeling
+module Demux_1X4(
+        input I, S0, S1, E,
+        output Y0, Y1, Y2, Y3
+    );
+    
+    assign Y0 = (E & ~S1 & ~S0 & I);
+    assign Y1 = (E & ~S1 & S0 & I);
+    assign Y2 = (E & S1 & ~S0 & I);
+    assign Y3 = (E & S1 & S0 & I);
+    
+endmodule
