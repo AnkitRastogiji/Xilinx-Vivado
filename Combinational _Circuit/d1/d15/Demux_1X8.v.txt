@@ -1,0 +1,18 @@
+`timescale 1ns / 1ps
+
+module Demux_1X8(
+        input I, S0, S1, S2, E,
+        output Y0, Y1, Y2, Y3, Y4, Y5, Y6, Y7
+    );
+    
+    assign Y0 = (E & ~S2 & ~S1 & ~S0 & I);
+    assign Y1 = (E & ~S2 & ~S1 & S0 & I);
+    assign Y2 = (E & ~S2 & S1 & ~S0 & I);
+    assign Y3 = (E & ~S2 & S1 & S0 & I);
+    
+    assign Y4 = (E & S2 & ~S1 & ~S0 & I);
+    assign Y5 = (E & S2 & ~S1 & S0 & I);
+    assign Y6 = (E & S2 & S1 & ~S0 & I);
+    assign Y7 = (E & S2 & S1 & S0 & I);
+    
+endmodule
