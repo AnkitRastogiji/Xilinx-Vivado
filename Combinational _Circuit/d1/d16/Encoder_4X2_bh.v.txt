@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+
+module Encoder_4X2_bh(
+        input I0, I1, I2, I3,
+        output reg Y0, Y1
+    );
+    always @(*)
+    begin
+      // condition check 
+        if(I3) begin
+            Y1 = 1;
+            Y0 = 1;
+        end
+        else if(I2) begin
+            Y1 = 1;
+            Y0 = 0;
+        end
+        else if(I1) begin
+            Y1 = 0;
+            Y0 = 1;
+        end
+        else if(I0) begin
+            Y1 = 0;
+            Y0 = 0;
+        end
+    end
+endmodule
