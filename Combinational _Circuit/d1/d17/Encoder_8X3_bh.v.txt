@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+module Encoder_8X3_bh(
+        input I0, I1, I2, I3, I4, I5, I6, I7,
+        output reg Y0, Y1, Y2
+    );
+    
+    always @(*) begin
+        // Test cases
+        case ({I7, I6, I5, I4, I3, I2, I1, I0})  
+            8'b00000001: {Y2, Y1, Y0} = 3'b000;
+            8'b00000010: {Y2, Y1, Y0} = 3'b001;
+            8'b00000100: {Y2, Y1, Y0} = 3'b010;
+            8'b00001000: {Y2, Y1, Y0} = 3'b011;
+            8'b00010000: {Y2, Y1, Y0} = 3'b100;
+            8'b00100000: {Y2, Y1, Y0} = 3'b101;
+            8'b01000000: {Y2, Y1, Y0} = 3'b110;
+            8'b10000000: {Y2, Y1, Y0} = 3'b111;
+            default: {Y2, Y1, Y0} = 3'bxxx;  // Undefined state
+        endcase
+    end
+
+endmodule
