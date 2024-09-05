@@ -1,0 +1,20 @@
+`timescale 1ns / 1ps
+// An encoder is a combinational ckt that convert binary information in the form of a 2^n i/p lines into n o/p lines.
+// using gate level modeling 
+module Encoder_4X2(
+       input I0, I1, I2, I3,
+       output Y0, Y1
+   );
+   or O1(Y1, I2, I3);
+   or O2(Y0, I1, I3);
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// using data flow modeling 
+module Encoder_4X2(
+        input I0, I1, I2, I3,
+        output Y0, Y1
+    );
+    assign Y1 = (I2 | I3);
+    assign Y0 = (I1 | I3);
+endmodule    
