@@ -1,0 +1,18 @@
+`timescale 1ns / 1ps
+
+module Priority_Encoder_4X2_bh(
+        input I0, I1, I2, I3,
+        output reg Y0, Y1
+    );
+    always @(*)
+        begin
+        case({I3, I2, I1, I0})
+            4'B0001: {Y1, Y0} = 2'B00;
+            4'B0010: {Y1, Y0} = 2'B01;
+            4'B0100: {Y1, Y0} = 2'B10;
+            4'B1000: {Y1, Y0} = 2'B11;
+            default: {Y1, Y0} = 2'bxx;
+            endcase
+        end    
+             
+endmodule
