@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+// Using gate level modeling 
+// It is a combinational ckt that Priority encoder i/p I0 is lowest and I3 is highest priority.
+// if I3 is high than o/p is high and I0 is low than o/p is low  
+module Priority_Encoder_4X2(
+       input I0, I1, I2, I3,
+       output Y0, Y1
+   );
+   wire l, m;
+   // gates are implement in ckt diagram
+   not N1(l, I2); // l = ~I2
+   and A1(m, l, I1); // m = l & I1
+   or O1(Y0, I3, m); // Y0 = I3 | m
+   or O2(Y1, I2, I3); // Y1 = I2 | I3
+    
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Using data flow modeling 
+module Priority_Encoder_4X2(
+        input I0, I1, I2, I3,
+        output Y0, Y1
+    );
+    assign Y0 = I3 | (I1 & ~I2);
+    assign Y1 = I2 | I3;
+endmodule
