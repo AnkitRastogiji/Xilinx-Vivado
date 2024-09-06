@@ -1,0 +1,25 @@
+`timescale 1ns / 1ps
+
+module Decimal_to_BCD_Encoder_bh(
+        input I0, I1, I2, I3, I4, I5, I6, I7, I8, I9,
+        output reg A, B, C, D
+    );
+    always @(*)
+        begin
+            case({I0, I1, I2, I3, I4, I5, I6, I7, I8, I9})
+        //test cases
+                10'b0000000001: {D, C, B, A} = 4'b0000;
+                10'b0000000010: {D, C, B, A} = 4'b0001;
+                10'b0000000100: {D, C, B, A} = 4'b0010;
+                10'b0000001000: {D, C, B, A} = 4'b0011;
+                10'b0000010000: {D, C, B, A} = 4'b0100;
+                10'b0000100000: {D, C, B, A} = 4'b0101;
+                10'b0001000000: {D, C, B, A} = 4'b0110;
+                10'b0010000000: {D, C, B, A} = 4'b0111;
+                10'b0100000000: {D, C, B, A} = 4'b1000;
+                10'b1000000000: {D, C, B, A} = 4'b1001;
+                
+                default: {D, C, B, A} = 4'b1111;
+             endcase
+         end
+endmodule
