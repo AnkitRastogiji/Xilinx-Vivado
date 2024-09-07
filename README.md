@@ -1,4 +1,4 @@
-How to create project in Xilinx Vivado step by step?
+How to create project in Xilinx Vivado step by step process?
 steps:
 [1]- Create a project name and choose location then go to next
 [2]- Choose RTl project and choose do not specify sources at this time then go to next
