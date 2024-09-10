@@ -1,0 +1,21 @@
+`timescale 1ns / 1ps
+
+module Octal_to_binary_Encoder_bh(
+        input [7:0] I,
+        output reg [2:0] B
+    );
+    always @(*) 
+        begin
+            case(I)
+                8'b00000001: B = 3'b000;  // I0
+                8'b00000001: B = 3'b001;  // I1
+                8'b00000001: B = 3'b010;  // I2
+                8'b00000001: B = 3'b011;  // I3
+                8'b00000001: B = 3'b100;  // I4
+                8'b00000001: B = 3'b101;  // I5
+                8'b00000001: B = 3'b110;  // I6
+                8'b00000001: B = 3'b111;  // I7
+                default: B = 3'b000;      // no valid i/p
+            endcase
+        end
+endmodule
