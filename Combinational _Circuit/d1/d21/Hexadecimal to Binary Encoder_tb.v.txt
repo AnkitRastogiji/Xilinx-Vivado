@@ -1,0 +1,30 @@
+`timescale 1ns / 1ps
+
+module Hexadecimal_to_binary_Encoder_tb();
+    reg [15:0] I;
+    wire [3:0] B;
+    
+    Hexadecimal_to_binary_Encoder dut(.I(I), .B(B));
+        initial 
+            begin
+                //Test Cases
+                I = 16'b0000000000000001; #10 // delay 10 ns  
+                I = 16'b0000000000000010; #10 // delay 10 ns
+                I = 16'b0000000000000100; #10 // delay 10 ns
+                I = 16'b0000000000001000; #10 // delay 10 ns
+                I = 16'b0000000000010000; #10 // delay 10 ns
+                I = 16'b0000000000100000; #10 // delay 10 ns
+                I = 16'b0000000001000000; #10 // delay 10 ns
+                I = 16'b0000000010000000; #10 // delay 10 ns
+                I = 16'b0000000100000000; #10 // delay 10 ns
+                I = 16'b0000001000000000; #10 // delay 10 ns
+                I = 16'b0000010000000000; #10 // delay 10 ns
+                I = 16'b0000100000000000; #10 // delay 10 ns
+                I = 16'b0001000000000000; #10 // delay 10 ns
+                I = 16'b0010000000000000; #10 // delay 10 ns
+                I = 16'b0100000000000000; #10 // delay 10 ns
+                I = 16'b1000000000000000; #10 // delay 10 ns
+                
+                $finish;
+            end
+endmodule
