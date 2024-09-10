@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// Using data flow modeling 
+module Hexadecimal_to_binary_Encoder(
+        input [15:0] I,
+        output [3:0] B
+    );
+    
+    assign B[3] = I[8] | I[9] | I[10] | I[11] | I[12] | I[13] | I[14] | I[15];
+    assign B[2] = I[4] | I[5] | I[6] | I[7] | I[12] | I[13] | I[14] | I[15];
+    assign B[1] = I[2] | I[3] | I[6] | I[7] | I[10] | I[11] | I[14] | I[15];
+    assign B[0] = I[1] | I[3] | I[5] | I[7] | I[9] | I[11] | I[13] | I[15];
+    
+endmodule
