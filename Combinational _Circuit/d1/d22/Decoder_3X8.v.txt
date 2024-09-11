@@ -1,0 +1,16 @@
+`timescale 1ns / 1ps
+// It is combinational ckt that just opposite of encoder. Some(i/p) to many(o/p)
+module Decoder_3X8(
+        input A, B, C,
+        output Y0, Y1, Y2, Y3, Y4, Y5, Y6, Y7
+    );
+    assign Y0 = ~A & ~B & ~C; // 000
+    assign Y1 = ~A & ~B & C;  // 001 
+    assign Y2 = ~A & B & ~C;  // 010
+    assign Y3 = ~A & B & C;   // 011
+    assign Y4 = A & ~B & ~C;  // 100
+    assign Y5 = A & ~B & C;   // 101
+    assign Y6 = A & B & ~C;   // 110
+    assign Y7 = A & B & C;    // 111
+    
+endmodule
