@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module Comparator_4bit(
+        input A3, A2, A1, A0, B3, B2, B1, B0,
+        output P, Q, R
+    );
+   // Syntax: condition ? value_if_true : value_if_false
+   assign P = ({A3, A2, A1, A0} > {B3, B2, B1, B0}) ? 1 : 0;
+   assign Q = ({A3, A2, A1, A0} == {B3, B2, B1, B0}) ? 1 : 0;
+   assign R = ({A3, A2, A1, A0} < {B3, B2, B1, B0}) ? 1 : 0;
+
+  //OR
+    
+    assign P = (A3 & ~B3) | ((!(A3 ^ B3)) & (A2 & ~B2)) | ((!(A3 ^ B3)) & (!(A2 ^ B2)) & (A1 & ~B1)) | 
+                ((!(A3 ^ B3)) & (!(A2 ^ B2)) & (!(A1 ^ B1)) & (A0 & ~B0));
+                
+    assign Q = (!(A3 ^ B3)) | (!(A2 ^ B2)) | (!(A1 ^ B1)) | (!(A0 ^ B0));
+    
+    assign R = (~A3 & B3) | ((!(A3 ^ B3)) & (~A2 & B2)) | ((!(A3 ^ B3)) & (!(A2 ^ B2)) & (~A1 & B1)) | 
+                ((!(A3 ^ B3)) & (!(A2 ^ B2)) & (!(A1 ^ B1)) & (~A0 & B0));
+                
+endmodule
