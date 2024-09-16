@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+
+module Comparator_3bit_bh(
+        input A2, A1, A0, B2, B1, B0,
+        output reg P, Q, R
+    );
+    always @(*) 
+        begin 
+            P = (A2 & ~B2) | (!(A2 ^ B2)) & (A1 & ~B1) | (!(A2 ^ B2)) & (!(A1 ^ B1)) & (A0 & ~B0);
+            Q = (!(A2 ^ B2)) | (!(A1 ^ B1)) | (!(A0 ^ B0));
+            R = (~A2 & B2) | (!(A2 ^ B2)) & (~A1 & B1) | (!(A2 ^ B2)) & (!(A1 ^ B1)) & (~A0 & B0);
+        end
+endmodule
