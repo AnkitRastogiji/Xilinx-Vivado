@@ -1,0 +1,18 @@
+`timescale 1ns / 1ps
+
+module Comparator_3bit(
+        input A2, A1, A0, B2, B1, B0,
+        output P, Q, R
+    );
+    // Syntax: condition ? value_if_true : value_if_false
+   assign P = ({A2, A1, A0} > {B2, B1, B0}) ? 1 : 0; // 1 is True and 0 is false
+   assign Q = ({A2, A1, A0} == {B2, B1, B0}) ? 1 : 0;
+   assign R = ({A2, A1, A0} < {B2, B1, B0}) ? 1 : 0;
+  
+    // or
+  
+   assign P = (A2 & ~B2) | (!(A2 ^ B2)) & (A1 & ~B1) | (!(A2 ^ B2)) & (!(A1 ^ B1)) & (A0 & ~B0);
+   assign Q = (!(A2 ^ B2)) | (!(A1 ^ B1)) | (!(A0 ^ B0));
+   assign R = (~A2 & B2) | (!(A2 ^ B2)) & (~A1 & B1) | (!(A2 ^ B2)) & (!(A1 ^ B1)) & (~A0 & B0);
+    
+endmodule
