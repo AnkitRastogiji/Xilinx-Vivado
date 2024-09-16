@@ -1,0 +1,11 @@
+`timescale 1ns / 1ps
+// It is a combinational ckt designed to compare two n-bit binary words. comparator has 3 o/p's (greater than, equal, less than)
+module Comparator_1bit(
+        input A, B,
+        output P, Q, R  
+    );
+    assign P = A & ~B;    // P= (A > B)
+    assign Q = !(A ^ B);  // Q = (A = B)
+    assign R = ~A & B;    // R = (A < B)
+    
+endmodule
