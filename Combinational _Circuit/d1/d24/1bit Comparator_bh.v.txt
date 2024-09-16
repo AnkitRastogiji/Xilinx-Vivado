@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+
+module Comparator_1bit_bh(
+        input A, B,
+        output reg P, Q, R  
+    );
+    always @(*)
+        begin
+            P = A & ~B;
+            Q = !(A ^ B);
+            R = ~A & B;
+        end
+endmodule
