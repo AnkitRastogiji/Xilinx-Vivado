@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+// Using gate level modeling
+module Binary_to_GrayCode_Conversion(
+        input A, B, C,
+        output P, Q, R
+    );
+    
+   and A1(P, A);
+   xor X1(Q, A, B);
+   xor X2(R, B, C);
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     
+    // Using data flow modeling
+module Binary_to_GrayCode_Conversion(
+        input A, B, C,
+        output P, Q, R
+    );
+    assign P = A;
+    assign Q = A ^ B;
+    assign R = B ^ C;
+    
+endmodule
