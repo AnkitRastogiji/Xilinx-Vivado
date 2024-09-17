@@ -1,0 +1,12 @@
+`timescale 1ns / 1ps
+
+module Binary_to_GrayCode_Conversion_bh(
+        input A, B, C,
+        output reg P, Q, R
+    );
+    always @(*) begin
+        P = A;
+        Q = A ^ B;
+        R = B ^ C;
+        end
+endmodule
