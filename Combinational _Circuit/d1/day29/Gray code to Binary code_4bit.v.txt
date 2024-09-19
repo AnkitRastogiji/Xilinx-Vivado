@@ -1,0 +1,26 @@
+`timescale 1ns / 1ps
+// Using gate level modeling
+module Gray_Code_to_Binary_Code(
+        input G3, G2, G1, G0,
+        output B3, B2, B1, B0
+    );
+    // Gate level modeling
+    xor X1(B0, G3, G2, G1, G0);
+    xor X2(B1, G3, G2, G1);
+    xor X3(B2, G3, G2);
+    and A1(B3, G3);
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    // using data flow modeling
+module Gray_Code_to_Binary_Code(
+        input G3, G2, G1, G0,
+        output B3, B2, B1, B0
+    );
+   assign B3 = (G3);
+   assign B2 = (G3 ^ G2);
+   assign B1 = (B2 ^ G1);
+   assign B0 = (B1 ^ G0);
+    
+endmodule
