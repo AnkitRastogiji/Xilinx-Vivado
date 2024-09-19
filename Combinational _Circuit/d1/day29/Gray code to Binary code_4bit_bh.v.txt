@@ -1,0 +1,14 @@
+`timescale 1ns / 1ps
+
+module Gray_Code_to_Binary_Code_bh(
+        input G3, G2, G1, G0,
+        output reg B3, B2, B1, B0
+    );
+    always @(*) begin
+        B3 = (G3);
+        B2 = (G3 ^ G2);
+        B1 = (B2 ^ G1); // G3 ^ G2 ^ G1
+        B0 = (B1 ^ G0); // G3 ^ G2 ^ G1 ^ G0
+        
+        end 
+endmodule
