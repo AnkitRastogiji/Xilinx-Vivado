@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+// Using data flow modeling 
+// In this each code decimal digit is represent 4 bit binary no. position weights are 8-4-2-1.
+// 10-15 are not part of BCD because this is decimal no. not that decimal digit
+// Binary much better than BCD because BCD is less efficient than binary
+module BCD_to_Decimal_Converter(
+       input B3, B2, B1, B0,
+       output [3:0] decimal
+   );
+    
+   assign decimal = (8 * B3) + (4 * B2) + (2 * B1) + B0;
+endmodule
+
+  //OR
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+module BCD_to_Decimal_Converter(
+        input B3, B2, B1, B0,
+        output [9:0] decimal
+    );
+    
+    assign decimal[0] = (~B3 & ~B2 & ~B1 & ~B0);
+    assign decimal[1] = (~B3 & ~B2 & ~B1 & B0); 
+    assign decimal[2] = (~B2 & B1 & ~B0); 
+    assign decimal[3] = (~B2 & B1 & B0); 
+    
+    assign decimal[4] = (B2 & ~B1 & ~B0);
+    assign decimal[5] = (B2 & ~B1 & B0);
+    assign decimal[6] = (B2 & B1 & ~B0);
+    assign decimal[7] = (B2 & B1 & B0);
+    
+    assign decimal[8] = (B3 & ~B0);
+    assign decimal[9] = (B3 & B0);
+    
+endmodule
