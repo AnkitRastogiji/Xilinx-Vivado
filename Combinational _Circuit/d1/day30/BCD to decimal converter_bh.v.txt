@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+
+module BCD_to_Decimal_Converter_bh(
+        input B3, B2, B1, B0,
+        output reg [9:0] decimal
+    );
+    always @(*) 
+        begin 
+            case({B3, B2, B1, B0})
+                4'b0000: decimal = 4'd0;
+                4'b0001: decimal = 4'd1;
+                4'b0010: decimal = 4'd2;
+                4'b0011: decimal = 4'd3;
+                4'b0100: decimal = 4'd4;
+                4'b0101: decimal = 4'd5;
+                4'b0110: decimal = 4'd6;
+                4'b0111: decimal = 4'd7;
+                4'b1000: decimal = 4'd8;
+                4'b1001: decimal = 4'd9;
+                default: decimal = 4'd0;
+             endcase
+         end             
+endmodule
