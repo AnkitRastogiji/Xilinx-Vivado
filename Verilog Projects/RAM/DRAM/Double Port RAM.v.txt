@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling method
+module Double_Port_RAM(
+        input [7:0] data1,
+        input [7:0] data2,
+        input [5:0] addr1,
+        input [5:0] addr2,
+        input we1,
+        input we2,
+        input clock,
+        
+        output reg [7:0] data_out1,
+        output reg [7:0] data_out2
+    );
+    reg [7:0] ram [127:0];
+    
+    always @(posedge clock) begin
+        if(we1) begin
+            ram[addr1] <= data1; // if data1 is high to store in addr1
+         end
+         else begin
+            data_out1 <= ram[addr1]; // if data1 is low to store in data_out1
+            end
+         end
+         
+     always @(posedge clock) begin
+        if(we2) begin
+            ram[addr2] <= data2; // if data2 is high to store in addr2
+         end
+         else begin
+            data_out2 <= ram[addr2]; // if data2 is low to store in data_out2
+            end
+         end
+   
+endmodule
