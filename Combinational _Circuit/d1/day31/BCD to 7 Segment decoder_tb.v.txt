@@ -1,0 +1,57 @@
+`timescale 1ns / 1ps
+
+module BCD_to_7Segmant_decoder_tb;
+
+    reg A;
+    reg B;
+    reg C;
+    reg D;
+    wire [6:0] seg;
+    
+    // Unit Under Test (UUT)
+    BCD_to_7Segmant_decoder uut (
+        .A(A), 
+        .B(B), 
+        .C(C), 
+        .D(D), 
+        .seg(seg)
+    );
+    initial begin
+        /
+        $monitor("Time = %0d, A = %b, B = %b, C = %b, D = %b, seg = %b", $time, A, B, C, D, seg);
+        
+        
+        A = 0; B = 0; C = 0; D = 0;
+        #10; // Wait 10 time units
+        
+        // Test Case 1: 0000
+        A = 0; B = 0; C = 0; D = 0;
+        #10;
+        
+        // Test Case 2: 0001
+        A = 0; B = 0; C = 0; D = 1;
+        #10;
+        
+        // Test Case 3: 0010
+        A = 0; B = 0; C = 1; D = 0;
+        #10;
+        A = 0; B = 0; C = 1; D = 1;
+        #10;
+        A = 0; B = 1; C = 0; D = 0;
+        #10;
+        A = 0; B = 1; C = 0; D =1;
+        #10;
+        A = 0; B = 1; C = 1; D = 0;
+        #10;
+        
+        A = 0; B = 1; C = 1; D = 1; 
+        #10;
+        A = 1; B = 0; C = 0; D = 0; 
+        #10;
+        A = 1; B = 0; C = 0; D = 1;
+        #10;
+        
+        $finish;
+    end
+    
+endmodule
