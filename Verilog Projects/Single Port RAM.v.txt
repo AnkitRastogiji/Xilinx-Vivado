@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+// My Mini Project behavioral modeling
+
+module Single_Port_RAM(
+        input clock,
+        input we, // we - enable high or low
+        input [6:0] addr,
+        input [7:0] data,
+        output [7:0] data_out
+    );
+    reg [7:0] ram [127:0]; // reg 8 bit IP and ram 2^7 = 128 bit loaction
+    reg [6:0] addr_reg; // addr reg in the form of 7 bit
+  
+    always @(posedge clock) begin
+        if(we) begin  // if data is high to store in ram which is address by addr
+            ram[addr] <= data;
+               end
+         else begin  // if data is low to store in addr_reg
+            addr_reg <= addr;
+              end
+         end
+         assign data_out = ram[addr_reg];
+         
+endmodule
