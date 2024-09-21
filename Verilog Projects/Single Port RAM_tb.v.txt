@@ -1,0 +1,69 @@
+module Single_Port_RAM_tb;
+  reg [7:0] data; 
+  reg [5:0] addr; 
+  reg we; 
+  reg clock; 
+  
+  wire [7:0] data_out; 	
+  
+  Single_Port_RAM uut(.data(data), .addr(addr), .we(we), .clock(clock), .data_out(data_out));
+  
+  initial
+    begin
+      $dumpfile("dump.vcd"); //value change dump simulation data will be recorded
+      $dumpvars(1);       // signal record during simulation
+      
+      clock=1'b1;
+      forever #5 clock = ~clock; // toggle clock every 5 time unit
+    end
+  
+  initial
+    begin
+      data = 8'h01; // data is 8 bit and start location 1
+      addr = 5'd0; // addr is 5 bit and start location  0
+      we = 1'b1; // enable is high
+      #10;
+      // after 10 time delay start  
+
+	  data = 8'h02;
+      addr = 5'd1;     
+      #10;
+      // after 10 time delay start  
+
+      data = 8'h03;
+      addr = 5'd2;     
+      #10;
+      // after 10 time delay start
+
+      addr = 5'd0; // addr is 5 bit and start 0
+      we = 1'b0; // enable is low
+      #10;
+       // after 10 time delay start
+
+      addr = 5'd1;
+      #10;
+       // after 10 time delay start
+
+      addr = 5'd2;
+      #10;
+       // after 10 time delay start
+
+      data = 8'h04; // data is 8 bit and start location 4
+      addr = 5'd1; // addr is 5 bit and start 1
+      we = 1'b1; // enable is high
+      #10;
+       // after 10 time delay start
+
+      addr = 5'd1;
+      we = 1'b0;
+      #10;
+       // after 10 time delay start
+
+      addr = 5'd3;
+      #10;
+    end
+  
+  initial
+    #90 $stop;
+  
+endmodule
