@@ -1,0 +1,55 @@
+`timescale 1ns / 1ps
+
+module Double_Port_RAM_tb();
+    reg [7:0] data1, data2;
+    reg [5:0] addr1, addr2;
+    reg we1, we2;
+    reg clock;
+    
+    wire [7:0] data_out1, data_out2;
+    
+    Double_Port_RAM dut(.data1(data1), .data2(data2), .addr1(addr1), .addr2(addr2), .we1(we1), .we2(we2), 
+                        .clock(clock), .data_out1(data_out1), .data_out2(data_out2));
+                        
+            initial begin 
+                $dumpfile("dump.vcd");
+                $dumpvars(1);
+                clock = 1'b1;
+                forever #5 clock = ~clock;
+                end
+                
+                initial begin 
+                    data1 = 8'h33;
+                    addr1 = 6'h01;
+                    
+                    data2 = 8'h44;
+                    addr2 = 6'h02;
+                    
+                    we1 = 1'b1;
+                    we2 = 1'b1;
+                    #10; // after 10 unit toggle time 
+                    
+                    data1 = 8'h55;
+                    addr1 = 6'h03;
+                    
+                    addr2 = 6'h01;
+                    we2 = 1'b0;
+                    #10; // after 10 unit toggle time 
+                    
+                    addr1 = 6'h02;
+                    addr2 = 6'h03;
+                    
+                    we1 = 1'b0;
+                    #10 // after 10 unit toggle time 
+                    
+                    addr1 = 6'h01;
+                    data2 = 8'h77;
+                    addr2 = 6'h02;
+                    we2 = 1'b1;
+                    
+                    #10; // after 10 unit toggle time 
+                    end
+                initial
+                #40 $stop;
+            
+endmodule
