@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling 
+// BCD no. limit (0 to 9), if no. is greater than 9 than invalid no.
+module BCD_Addition(
+        input [3:0] A, B,
+        input Cin,
+        output reg [3:0] Sum, 
+        output reg Carry
+    );
+  reg [4:0] Sum_temp; // when add the no. extra carry are generate than using [4:0]
+    always @(*) 
+        begin 
+            Sum_temp = A + B + Cin;
+            if(Sum_temp > 9) begin
+                Sum_temp = Sum_temp + 6;
+                Carry = 1;
+                Sum = Sum_temp [3:0];
+                end
+            else begin
+                Carry = 0;
+                Sum = Sum_temp [3:0];
+                end  
+        end
+endmodule
