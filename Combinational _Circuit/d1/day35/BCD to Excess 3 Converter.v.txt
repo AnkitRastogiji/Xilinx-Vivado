@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+// Using data flow modeling 
+module BCDtoExcess3_Converter(
+        input A, B, C, D,
+        output P, Q, R, S
+    );
+    
+    assign P = A & (B & D) | (B & C);
+    assign Q = (~B & C) | (D & ~B) | (B & ~C & ~D);
+    assign R = !(C ^ D);
+    assign S = ~D;
+    
+endmodule
