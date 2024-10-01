@@ -1,0 +1,14 @@
+`timescale 1ns / 1ps
+//Using data flow modeling 
+module BinarytoBCD_Converter(
+        input P, Q, R, S,
+        output A, B, C, D, E
+    );
+    
+    assign A = (P & Q) | (P & R);
+    assign B = (P & ~Q & ~R);
+    assign C = (~P & Q) | (Q & R);
+    assign D = (~P & R) | (P & Q & ~R);
+    assign E = S;
+    
+endmodule
