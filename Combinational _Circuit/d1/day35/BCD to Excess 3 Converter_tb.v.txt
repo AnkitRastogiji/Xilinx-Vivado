@@ -1,0 +1,33 @@
+`timescale 1ns / 1ps
+
+module BCDtoExcess3_Converter_tb();
+    reg A, B, C, D;
+    wire P, Q, R, S;
+    
+    BCDtoExcess3_Converter dut(.A(A), .B(B), .C(C), .D(D), 
+                               .P(P), .Q(Q), .R(R), .S(S));
+            initial begin
+                //test cases
+                A = 0; B = 0; C = 0; D = 0;
+                #10; // delay 10 ns
+                A = 0; B = 0; C = 0; D = 1;
+                #10; // delay 10 ns
+                A = 0; B = 0; C = 1; D = 0;
+                #10; // delay 10 ns
+                A = 0; B = 0; C = 1; D = 1;
+                #10; // delay 10 ns
+                A = 0; B = 1; C = 0; D = 0;
+                #10; // delay 10 ns
+                A = 0; B = 1; C = 0; D = 1;
+                #10; // delay 10 ns
+                A = 0; B = 1; C = 1; D = 0;
+                #10; // delay 10 ns
+                A = 0; B = 1; C = 1; D = 1;
+                #10; // delay 10 ns
+                A = 1; B = 0; C = 0; D = 0;
+                #10; // delay 10 ns
+                A = 1; B = 0; C = 0; D = 1;
+                #10; // delay 10 ns
+                $finish;
+                end
+endmodule
