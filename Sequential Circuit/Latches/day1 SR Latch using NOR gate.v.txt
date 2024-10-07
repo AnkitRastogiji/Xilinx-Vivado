@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+// SR Latch (Set Reset)
+//Using gate level modeling
+module SRLatch_using_NOR(
+        input S, R,
+        output Q, Q_bar
+    );
+    
+   nor N1(Q, S, Q_bar);
+   nor N2(Q_bar, R, Q);
+endmodule
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  module SRLatch_using_NOR(
+        input S, R,
+        output Q, Q_bar
+    );
+    // Using data flow modeling
+  assign Q = !(S | Q_bar);
+  assign Q_bar = !(R | Q);
+    
+endmodule
+
