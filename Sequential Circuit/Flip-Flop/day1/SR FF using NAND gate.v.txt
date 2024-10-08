@@ -1,0 +1,29 @@
+`timescale 1ns / 1ps
+// Using gate level mocdeling
+module SR_FF_using_NAND(
+        input S, R, clock,
+        output Q, Q_bar
+    );
+    wire nand1_out, nand2_out;
+    
+    nand N1(nand1_out, S, clock);
+    nand N2(nand2_out, R, clock);
+    nand N3(Q, nand1_out, Q_bar);
+    nand N4(Q_bar, nand2_out, Q);
+endmodule
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------4
+
+//using data flow modeling
+module SR_FF_using_NAND(
+        input S, R, clock,
+        output Q, Q_bar
+    );
+    wire nand1_out, nand2_out;
+
+   assign nand1_out = !(S & clock);
+   assign nand2_out = !(R & clock);
+   assign Q = !(nand1_out & Q_bar);
+   assign Q_bar = !(nand2_out & Q);
+    
+endmodule
