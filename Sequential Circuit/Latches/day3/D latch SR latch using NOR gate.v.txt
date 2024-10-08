@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+// Using gate level modeling
+module DLatch_using_NOR_gate(
+        input D, clock,
+        output Q, Q_bar
+    );
+    
+    wire not_out, and1_out, and2_out;
+    
+   not N1(not_out, D);
+   and A1(and1_out, not_out, clock);
+   and A2(and2_out, D, clock);
+   nor R1(Q, and1_out, Q_bar);
+   nor R2(Q_bar, and2_out, Q);
+endmodule
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+  //Using data flow modeling
+module DLatch_using_NOR_gate(
+        input D, clock,
+        output Q, Q_bar
+    );
+    
+    wire not_out, and1_out, and2_out;
+    
+    assign not_out = ~D;
+    assign and1_out = (not_out & clock);
+    assign and2_out = (D & clock);
+    assign Q = !(and1_out | Q_bar);
+    assign Q_bar = !(and2_out | Q);
+     
+endmodule
