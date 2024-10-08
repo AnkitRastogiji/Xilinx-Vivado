@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module DLatch_using_NOR_gate_tb();
+    reg D, clock;
+    wire Q, Q_bar;
+    
+    DLatch_using_NOR_gate dut(.D(D), .clock(clock), .Q(Q), .Q_bar(Q_bar));
+        initial begin
+            clock = 0;
+            forever #5 clock = ~clock; // toggle clock every 5ns
+        end
+        initial begin 
+            // initial test case
+            D = 0;
+            // test cases
+            #10; D = 1;
+            #10; D = 0;
+            #10; D = 1;
+            #10; D = 0;
+            $finish;
+            end
+endmodule
