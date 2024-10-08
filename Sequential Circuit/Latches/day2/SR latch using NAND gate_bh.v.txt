@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+
+module SRLatch_using_NAND_bh(
+        input S, R,
+        output reg Q, Q_bar
+    );
+    always @(*) begin
+    
+        Q = !(S & Q_bar);
+        Q_bar = !(R & Q);
+        
+        end
+endmodule
