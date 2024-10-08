@@ -1,0 +1,31 @@
+`timescale 1ns / 1ps
+
+module DLatch_using_NOR_gate_bh(
+        input D, clock,
+        output reg Q, Q_bar
+    );
+    reg not_out, and1_out, and2_out; // Change wire to reg for procedural assignment
+        always @(*) begin
+        
+             not_out = ~D;
+             and1_out = (not_out & clock);
+             and2_out = (D & clock);
+             Q = !(and1_out | Q_bar);
+             Q_bar = !(and2_out | Q);
+             end
+endmodule
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// 2nd method using condition 
+
+module DLatch_using_NOR_gate_bh(
+        input D, clock,
+        output reg Q, Q_bar
+    );
+    reg not_out, and1_out, and2_out; // Change wire to reg for procedural assignment
+        always @(*) begin
+            if(clock) begin
+                Q = D;
+                Q_bar = ~D;
+                end
+        end
+endmodule
