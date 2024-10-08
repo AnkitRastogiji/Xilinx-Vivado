@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+// Using gate level modeling
+module SRLatch_using_NAND(
+        input S, R,
+        output Q, Q_bar
+    );
+    
+   nand N1(Q, S, Q_bar);
+   nand N2(Q_bar, R, Q);
+endmodule
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Using data flow modeling
+  module SRLatch_using_NAND(
+        input S, R,
+        output Q, Q_bar
+    );
+    assign Q = !(S & Q_bar);
+    assign Q_bar = !(R & Q);
+    
+endmodule
