@@ -1,0 +1,25 @@
+`timescale 1ns / 1ps
+
+module JK_FF_usingNAND_bh(
+        input J, K, clock,
+        output reg Q,
+        output Q_bar
+    );
+    // Q_bar always complemnt of Q
+    assign Q_bar = ~Q;
+    
+    always @(posedge clock) begin
+        if(J == 0 && K == 0) begin
+            Q <= Q;
+        end
+        else if(J == 0 && K == 1) begin
+            Q <= 0;
+        end
+        else if(J == 1 && K == 0) begin
+            Q <= 1;
+        end
+        else if(J == 1 && K == 1) begin
+            Q <= ~Q;
+        end
+        end
+endmodule
