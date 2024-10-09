@@ -1,0 +1,28 @@
+`timescale 1ns / 1ps
+// Using gate level modeling 
+module JK_FF_usingNAND(
+        input J, K, clock,
+        output Q, Q_bar
+    );
+    wire nand1_out, nand2_out;
+    
+   nand N1(nand1_out, J, clock, Q_bar);
+   nand N2(nand2_out, K, clock, Q);
+   nand N3(Q, nand1_out, Q_bar);
+   nand N4(Q_bar, nand2_out, Q);
+endmodule
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//using data flow modeling 
+  module JK_FF_usingNAND(
+        input J, K, clock,
+        output Q, Q_bar
+    );
+    wire nand1_out, nand2_out;
+
+    assign nand1_out = !(J & clock & Q_bar);
+    assign nand2_out = !(K & clock & Q);
+    assign Q = !(nand1_out & Q_bar);
+    assign Q_bar = !(nand2_out & Q);
+endmodule
