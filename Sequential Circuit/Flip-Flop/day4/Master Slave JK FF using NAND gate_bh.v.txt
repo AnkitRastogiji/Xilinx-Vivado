@@ -1,0 +1,28 @@
+`timescale 1ns / 1ps
+
+module Master_SlaveFF_usingJKFF_bh(
+        input J, K, clock,
+        output reg Q, Q_bar
+    );
+    reg Qm, Qn;  // Master flip-flop output and Qn as intermediate signal
+    // for master FF
+    always @(posedge clock) begin 
+        if(J == 0 && K == 0) begin
+            Qm <= Qm; // no change 
+        end
+        if(J == 0 && K == 1) begin
+            Qm <= 0; // reset
+        end
+        if(J == 1 && K == 0) begin
+            Qm <= 1; // set
+        end
+        if(J == 1 && K == 1) begin
+            Qm <= ~Qm; // toggle
+        end
+        end
+     // Slave FF
+     always @(negedge clock) begin
+        Q <= Qm;
+        Q_bar <= ~Qm; // Corrected Q_bar to be assigned as the complement of Qm (master output), not Qn.
+        end
+endmodule
