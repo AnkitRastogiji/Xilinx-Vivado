@@ -1,0 +1,62 @@
+`timescale 1ns / 1ps
+
+module Master_SlaveFF_usingJKFF_bh_tb;
+    reg J;
+    reg K;
+    reg clock;
+    wire Q;
+    wire Q_bar;
+
+    // Instantiate the Unit Under Test (UUT)
+    Master_SlaveFF_usingJKFF_bh uut (
+        .J(J), 
+        .K(K), 
+        .clock(clock), 
+        .Q(Q), 
+        .Q_bar(Q_bar)
+    );
+
+    // Clock generation
+    initial begin
+        clock = 0; // Initialize clock
+        forever #5 clock = ~clock; 
+    end
+
+    // Test procedure
+    initial begin
+        // Initialize Inputs
+        J = 0;
+        K = 0;
+        #10;
+
+        // Display header
+        // This aids in tracking the state changes effectively.
+        $display("Time\tJ\tK\tQ\tQ_bar");
+        
+        J = 0; K = 0; #10; 
+        display_results();
+
+        J = 0; K = 1; #10; 
+        display_results();
+
+        J = 1; K = 0; #10; 
+        display_results();
+
+        J = 1; K = 1; #10; 
+        display_results();
+
+        J = 0; K = 0; #10; 
+        display_results();
+
+        // End of simulation
+        $finish;
+    end
+
+    // Display Results
+    task display_results;
+        begin
+            $display("%0t\t%b\t%b\t%b\t%b", $time, J, K, Q, Q_bar);
+        end
+    endtask
+
+endmodule
