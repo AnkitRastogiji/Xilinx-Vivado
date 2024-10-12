@@ -1,0 +1,28 @@
+`timescale 1ns / 1ps
+// Using gate level modeling
+//i/p will get transfered to o/p in next state and store only single bit of data.
+module D_FF_UsingNAND(
+        input D, clock,
+        output Q, Q_bar
+    );
+   not N0(not_out, D);
+   nand N1(nand1_out, D, clock);
+   nand N2(nand2_out, clock, not_out);
+   nand N3(Q, nand1_out, Q_bar);
+   nand N4(Q_bar, nand2_out, Q);
+endmodule
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//data flow modeling
+  module D_FF_UsingNAND(
+        input D, clock,
+        output Q, Q_bar
+    );
+    assign not_out = ~D;
+    assign nand1_out = !(D & clock);
+    assign nand2_out = !(clock & not_out);
+    assign Q = !(nand1_out & Q_bar);
+    assign Q_bar = !(nand2_out & Q);
+    
+endmodule
