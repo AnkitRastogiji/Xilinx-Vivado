@@ -1,0 +1,19 @@
+`timescale 1ns / 1ps
+
+module D_FF_UsingNAND_tb();
+    reg D, clock;
+    wire Q, Q_bar;
+    
+    D_FF_UsingNAND dut(.D(D), .clock(clock), .Q(Q), .Q_bar(Q_bar));
+        initial begin 
+            clock = 0;
+            forever #5 clock = ~clock;
+        end
+        initial begin 
+            //test cases
+            D = 0; #10;  // delay 10 ns
+            D = 1; #10   // delay 10 ns
+            D = 0; #10   // delay 10 ns
+            $finish;
+        end
+endmodule
