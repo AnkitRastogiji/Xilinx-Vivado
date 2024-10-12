@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module D_FF_UsingNAND_bh(
+        input D, clock,
+        output reg Q,
+        output Q_bar
+    );
+    //or
+//    always @(posedge clock) begin 
+//        if(clock) begin 
+//            Q <= D;
+//        end
+//        end
+//        assign Q_bar = ~Q;
+        
+    always @(posedge clock) begin 
+        case(D)
+            2'b0 : Q <= 1'b0;
+            2'b1 : Q <= 1'b1;
+        endcase
+        end
+endmodule
