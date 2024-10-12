@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+// Using gate level modeling 
+module Master_SlaveFF_usingJKFF(
+        input J, K, clock,
+        output Q, Q_bar
+    );
+    wire clock1, nand1_out, nand2_out, Qm, Qn, nand3_out, nand4_out;
+    // Master JK FF
+    not  N0(clock1, clock);
+    
+    nand N1(nand1_out, J, clock, Q_bar);
+    nand N2(nand2_out, K, clock, Q);
+    nand N3(Qm, nand1_out, Qn);
+    nand N4(Qn, nand2_out, Qm);
+    
+    //Slave JK FF
+    nand N5(nand3_out, Qm, clock1);
+    nand N6(nand4_out, Qn, clock1);
+    nand N7(Q, nand3_out, Q_bar);
+    nand N8(Q_bar, nand4_out, Q);
+    
+endmodule
