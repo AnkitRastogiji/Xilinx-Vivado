@@ -1,0 +1,16 @@
+`timescale 1ns / 1ps
+
+module TFF_Using_JKFF_bh(
+        input T, clock,
+        output reg Q, Q_bar
+    );
+    always @(posedge clock) begin
+        if(T) begin   
+            Q <= ~Q;
+        end
+        else begin
+            Q <= Q;
+        end
+        assign Q_bar = ~Q;  // Q_bar just complement of Q
+        end
+endmodule
