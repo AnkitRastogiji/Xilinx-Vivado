@@ -1,0 +1,28 @@
+`timescale 1ns / 1ps
+
+module TFF_Using_JKFF_tb();
+    reg T, clock;
+    wire Q, Q_bar;
+    
+    TFF_Using_JKFF dut(.T(T), .clock(clock), .Q(Q), .Q_bar(Q_bar));
+        initial begin
+            clock = 0;
+            forever #5 clock = ~clock;
+        end
+        initial begin
+            //test cases
+            T = 0;
+            #10; // delay 10 ns
+            T = 1; 
+            #10; // delay 10 ns
+            T = 0; 
+            #10; // delay 10 ns
+            T = 1; 
+            #10; // delay 10 ns
+            T = 1; 
+            #10; // delay 10 ns
+            
+            $finish;
+            end
+    
+endmodule
