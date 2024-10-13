@@ -1,0 +1,30 @@
+`timescale 1ns / 1ps
+// gate level modeling 
+// Toggle FF means o/p will changes w.r.t. i/p along with clock signal.
+module TFF_Using_JKFF(
+        input T, clock,
+        output Q, Q_bar
+    );
+    wire nand1_out, nand2_out;
+    
+   nand N1(nand1_out, T, clock, Q_bar);
+   nand N2(nand2_out, T, clock, Q);
+   nand N3(Q, nand1_out, Q_bar);
+   nand N4(Q_bar, nand2_out, Q);
+endmodule
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//data flow modeling 
+ module TFF_Using_JKFF(
+        input T, clock,
+        output Q, Q_bar
+    );
+    wire nand1_out, nand2_out;
+   
+    assign nand1_out = !(T & clock & Q_bar);
+    assign nand2_out = !(T & clock & Q);
+    assign Q = !(nand1_out & Q_bar);
+    assign Q_bar = !(nand2_out & Q);
+    
+endmodule
