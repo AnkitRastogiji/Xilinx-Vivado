@@ -1,0 +1,34 @@
+`timescale 1ns / 1ps
+
+module SRtoJK_FF_Conversion_tb;
+reg J, K, clock;
+wire Q, Q_bar;
+SRtoJK_FF_Conversion uut (.J(J), .K(K), .clock(clock), .Q(Q), .Q_bar(Q_bar));
+
+// Clock generation
+initial begin
+    clock = 0;
+    forever #5 clock = ~clock; // Toggle clock every 5 ns
+end
+// Test procedure
+initial begin
+    // Initialize inputs
+    J = 0; K = 0;
+    #10;
+    J = 0; K = 0; 
+    #10;
+    J = 1; K = 0; 
+    #10;
+    J = 0; K = 1; 
+    #10;
+    J = 1; K = 1; 
+    #10;
+    $finish;
+end
+
+// Monitor outputs
+initial begin
+    $monitor("At time %t: J = %b, K = %b, Q = %b, Q_bar = %b", $time, J, K, Q, Q_bar);
+end
+
+endmodule
