@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+// Using gate level modeling 
+module SRtoJK_FF_Conversion(
+        input J, K, clock,
+        output Q, Q_bar
+    );
+    wire S, R, nand1_out, nand2_out;
+    // JK FF
+    and A1(S, J, Q_bar);
+    and A2(R, K, Q);
+    // SR FF
+    nand N1(nand1_out, S, clock);
+    nand N2(nand2_out, R, clock);
+    nand N3(Q, nand1_out, Q_bar);
+    nand N4(Q_bar, nand2_out, Q);
+    
+endmodule
