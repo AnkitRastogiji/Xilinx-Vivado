@@ -1,0 +1,34 @@
+`timescale 1ns / 1ps
+
+module SRtoJK_FF_Conversion_bh(
+        input J, K, clock,S, R,
+        output reg Q,
+        output Q_bar
+    );
+    
+    assign Q_bar = ~Q;
+    always @(posedge clock or posedge S or posedge R) begin
+            // check SR FF 
+            if(R) begin
+                Q <= 1'b0;
+            end
+            else if(S) begin
+                Q <= 1'b1;
+            end
+            else begin
+            // JK FF
+                if(J == 0 && K == 0) begin
+                    Q <= Q;
+                end
+                else if(J == 0 && K == 1) begin
+                    Q <= 1'b0;
+                end
+                else if(J == 1 && K == 0) begin
+                    Q <= 1'b1;
+                end
+                else if(J == 1 && K == 1) begin
+                    Q <= ~Q;
+                end
+            end
+        end        
+endmodule
