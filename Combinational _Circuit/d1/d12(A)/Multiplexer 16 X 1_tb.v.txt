@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+
+module mux16to1_tb();
+    reg [15:0] in; 
+    reg [3:0] sel;
+    wire c_out;
+
+    // Instantiate the 16-to-1 multiplexer
+    mux16to1 M(.in(in), .sel(sel), .c_out(c_out));
+
+    initial 
+    begin
+        // Initialize dump file for waveform analysis
+        $dumpfile("mux16to1.vcd");
+        $dumpvars(0, mux16to1_tb);
+
+        // Start monitoring signals
+        $monitor($time, " in = %h, sel = %h, c_out = %b", in, sel, c_out);
+
+        // Initialize inputs
+        in = 16'h0000; 
+        sel = 4'h0;
+        // Apply test vectors
+        #5 in = 16'h3f0a; sel = 4'h0;
+        #5 sel = 4'h1;
+        #5 sel = 4'h6;
+        #5 sel = 4'hc;
+        // Finish simulation
+        #5 $finish;
+    end
+endmodule
+
