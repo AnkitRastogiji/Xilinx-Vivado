@@ -1,0 +1,57 @@
+`timescale 1ns / 1ps
+
+module Vending_Machine_tb();
+    reg reset;
+    reg clock;
+    reg quarter;
+    reg dollar;
+    reg [5:0] select;
+    reg [5:0] load;
+    reg buy;
+    wire [11:0] money;
+    wire [5:0] product;
+    wire [5:0] out_of_stock;
+    
+    // unit under test(corresponding ports in the module using dot notation.)
+    Vending_Machine uut(.reset(reset), .clock(clock), .quarter(quarter),
+                       .dollar(dollar), .select(select), .load(load),
+                       .buy(buy), .money(money), .product(product), 
+                       .out_of_stock(out_of_stock));
+                       
+        initial
+            begin
+                clock = 0;
+                forever #5 clock = ~clock;
+                // Toggles the clock every 5 ns using forever and #5 delay. This creates a clock signal with a 10 ns period.
+            end
+            
+        initial
+            begin
+                // reset signal is set high initially to reset the UUT.
+                reset = 1; quarter = 0; dollar = 0; select = 0; load = 0; buy = 0;
+                // reset sets it low to allow normal operation.
+                #10 reset = 0; 
+                // coin is set to 1 for 10 ns and then set back to 0.
+                #10 quarter = 1; #10 quarter = 0;
+                #10 quarter = 1; #10 quarter = 0;
+                #10 quarter = 1; #10 quarter = 0;
+                // toggling rupees similarly.
+                #10 dollar = 1; #10 dollar = 0;
+                //buy product 1
+                #10 select = 6'b000010; buy = 1; #10 buy = 0;
+                // check out of stock status
+                #10 
+                // reload product 1 chips
+                #10 load = 6'b000010; #10 load = 0;
+                // buy product 3
+                #10 select = 6'b001000; buy = 1; #10 buy = 0;
+                
+                #50
+                $finish;
+                end 
+                initial begin
+                    // observing the internal states of the uut
+                    $monitor("Time = %0d | Money = %0d | Product = %b | Out_of_Stock = %b", 
+                              $time, money, product, out_of_stock);
+                end
+endmodule
