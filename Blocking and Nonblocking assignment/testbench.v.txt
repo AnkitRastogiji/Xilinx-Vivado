@@ -1,0 +1,19 @@
+`timescale 1ns / 1ps
+
+module blocking_nonblocking_assig_tb();
+    reg X;
+    reg clock;
+    wire [5:0] Y;
+    
+    blocking_nonblocking_assig dut(.X(X), .clock(clock), .Y(Y));
+    initial
+        begin
+        clock = 0;
+        forever #10 clock = ~clock;
+        end 
+        initial begin
+        X = 0;  #100
+        X = 1;  #100
+        X = 0;
+        end
+endmodule
