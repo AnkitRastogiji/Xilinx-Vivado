@@ -1,0 +1,110 @@
+`timescale 1ns / 1ps
+
+module Vending_Machine(
+    input clock,
+    input reset,
+    input quarter,
+    input dollar,
+  input [5:0] select, // 6-bit input to select one of six products
+    input buy,  // Signal to confirm the purchase.
+    input [5:0] load,
+    output reg [11:0] money = 0,  // Tracks total money inserted in cents.
+    output reg [5:0] product = 0,   // 6-bit output indicating the dispensed product 
+    output reg [5:0] out_of_stock = 0   // 6-bit output indicating if products are out of stock.
+    );
+     // Using internal register
+    reg quarter_prev, dollar_prev;
+    reg buy_prev;
+    // Registers that store the stock levels of six products, initialized to 63
+    reg [5:0] stock0 = 6'b111111; // Product 0 GUM 25 cent
+    reg [5:0] stock1 = 6'b111111; // Product 1 Chips 75 cent
+    reg [5:0] stock2 = 6'b111111; // Product 2 Biscuit 1 dollar
+    reg [5:0] stock3 = 6'b111111; // Product 3 Takatak 1.5 dollar
+    reg [5:0] stock4 = 6'b111111; // Product 4 Drinks 2 dollar
+    reg [5:0] stock5 = 6'b111111; // Product 5 Chocolate 2.5 dollar
+
+    // Triggered on the rising edge of clock, ensuring synchronization with the system clock.
+    always @(posedge clock) begin
+        // Update previous values 
+        // Using non blocking assignment in this code
+        quarter_prev <= quarter;
+        dollar_prev <= dollar;
+        buy_prev <= buy;
+        
+        if (reset) begin
+            // Resets money to 0 when reset is active
+            money <= 12'b0; // Reset money
+        end
+        else begin
+            // Money insertion logic
+            if (quarter_prev == 1'b0 && quarter == 1'b1) begin
+                money <= money + 12'd25;
+            end
+            else if (dollar_prev == 1'b0 && dollar == 1'b1) begin
+                money <= money + 12'd100;
+            end
+            
+            // Product buying logic
+            if (buy_prev == 1'b0 && buy == 1'b1) begin
+                case (select)
+                    6'b000001: if (money >= 12'd25 && stock0 > 0) begin
+                        product[0] <= 1'b1;  // buy a product 
+                        // decrements stock, and deducts the price from money.
+                        stock0 <= stock0 - 1'b1;
+                        money <= money - 12'd25;
+                    end
+                    6'b000010: if (money >= 12'd75 && stock1 > 0) begin
+                        product[1] <= 1'b1;
+                        stock1 <= stock1 - 1'b1;
+                        money <= money - 12'd75;
+                    end
+                    6'b000100: if (money >= 12'd100 && stock2 > 0) begin
+                        product[2] <= 1'b1;
+                        stock2 <= stock2 - 1'b1;
+                        money <= money - 12'd100;
+                    end
+                    6'b001000: if (money >= 12'd150 && stock3 > 0) begin
+                        product[3] <= 1'b1;
+                        stock3 <= stock3 - 1'b1;
+                        money <= money - 12'd150;
+                    end
+                    6'b010000: if (money >= 12'd200 && stock4 > 0) begin
+                        product[4] <= 1'b1;
+                        stock4 <= stock4 - 1'b1;
+                        money <= money - 12'd200;
+                    end
+                    6'b100000: if (money >= 12'd250 && stock5 > 0) begin
+                        product[5] <= 1'b1;
+                        stock5 <= stock5 - 1'b1;
+                        money <= money - 12'd250;
+                    end
+                endcase
+            end
+            else if (buy_prev == 1'b1 && buy == 1'b0) begin
+                // Resets the product output when buy falls from 1 to 0
+                product <= 6'b000000; // Reset product display
+            end
+            
+            // Stock check logic
+            // If true, out_of_stock[0] is set to 1
+            // if stock level is 0 then indicate set 1 otherwise stock is not 0 then indicate set 0 product is available
+            out_of_stock[0] <= (stock0 == 6'b000000) ? 1'b1 : 1'b0;
+            out_of_stock[1] <= (stock1 == 6'b000000) ? 1'b1 : 1'b0;
+            out_of_stock[2] <= (stock2 == 6'b000000) ? 1'b1 : 1'b0;
+            out_of_stock[3] <= (stock3 == 6'b000000) ? 1'b1 : 1'b0;
+            out_of_stock[4] <= (stock4 == 6'b000000) ? 1'b1 : 1'b0;
+            out_of_stock[5] <= (stock5 == 6'b000000) ? 1'b1 : 1'b0;
+            
+            // Stock loading logic
+            case (load)
+                // product is restocked with 63 units
+                6'b000001: stock0 <= 6'b111111;
+                6'b000010: stock1 <= 6'b111111;
+                6'b000100: stock2 <= 6'b111111;
+                6'b001000: stock3 <= 6'b111111;
+                6'b010000: stock4 <= 6'b111111;
+                6'b100000: stock5 <= 6'b111111;
+            endcase
+        end
+    end
+endmodule
