@@ -1,0 +1,19 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling method 
+module blocking_nonblocking_assig(
+    input X,
+    input clock,
+    output reg [5:0] Y // Y[5] = 0 , Y[4] = 0 , Y[3] = 0 , Y[2] = 0 , Y[1] = 0 , Y[0] = 0
+);
+    always @(posedge clock) 
+        begin
+        // using blocking assignment 
+        Y[0] = X;
+        Y[1] = Y[0];
+        Y[2] = Y[1];
+        // using non blocking assignment 
+        Y[3] <= X;
+        Y[4] <= Y[3];
+        Y[5] <= Y[4];
+        end
+endmodule
