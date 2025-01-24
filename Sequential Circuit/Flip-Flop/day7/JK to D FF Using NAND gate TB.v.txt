@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+
+module JK_to_D_conversion_tb();
+    reg d, clock;           
+    wire q, qbar;          
+
+    // Instantiate the JK_to_D_conversion module
+    JK_to_D_conversion uut (
+        .q(q), 
+        .qbar(qbar),    
+        .D(d),             
+        .clk(clock)
+    );
+
+    // Clock generation (50% duty cycle)
+    always #5 clock = ~clock;
+
+    initial begin
+        // Initialize inputs
+        clock = 0;
+        d = 0;
+
+        // Display signal values during simulation
+        $monitor("Time = %0t | D = %b | Q = %b | Qbar = %b | Clock = %b", $time, d, q, qbar, clock);
+
+        // Apply test cases
+        #10 d = 1;   // Change d to 1
+        #10 d = 0;   // Change d to 0
+        #10 d = 1;   // Change d to 1
+        #10 d = 0;   // Change d to 0
+
+        // End simulation
+        #20 $finish;
+    end
+endmodule
