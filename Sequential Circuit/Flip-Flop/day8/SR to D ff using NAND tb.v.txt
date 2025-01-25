@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module SR_to_D_FF_tb();
+    reg d, clock;
+    wire q, qbar;
+    // user under test
+    SR_to_D_FF uut(.d(d), .clock(clock), .q(q), .qbar(qbar));
+    
+    initial begin
+        clock = 0;
+        forever #5 clock = ~clock;
+    end
+    initial begin
+        d = 0;
+        #10 d = 1;
+        #10 d = 0;
+        #10 d = 1;
+        #10 d = 1;
+        #10 d = 0;
+        #10 $finish;
+    end
+endmodule
