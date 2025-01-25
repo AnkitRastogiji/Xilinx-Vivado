@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+// Using bahavioral modleing case
+module SR_to_D_FF(
+    input wire d, clock,
+    output reg q, qbar
+    );
+    wire S, R;
+    assign S = d;
+    assign R = ~d;
+    
+    // Flip-flop behavior
+    always @(posedge clock) begin
+        if(S & ~R) begin
+            q <= 1'b1;
+            qbar <= 1'b0;
+        end
+        else if(~S & R) begin
+            q <= 1'b0;
+            qbar <= 1'b1;
+        end
+        else if(~S & ~R) begin
+            q <= q;
+            qbar <= qbar;
+        end
+    end
+endmodule
+
