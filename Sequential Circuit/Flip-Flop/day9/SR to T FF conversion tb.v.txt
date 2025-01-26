@@ -1,0 +1,24 @@
+`timescale 1ns / 1ps
+
+module SR_to_T_conversion_FF_tb();
+    reg t, clock, reset;
+    wire q;
+    // user under test
+    SR_to_T_conversion_FF uut(.t(t), .clock(clock), .reset(reset), .q(q));
+    initial begin
+         clock = 0;
+         forever #5 clock = ~clock;
+    end
+    initial begin
+            reset = 1; t = 0;
+        #10 reset = 0; // De-assert reset
+        #10 t = 1; // Toggle once
+        #10 t = 0; // Hold state
+        #10 t = 1; // Toggle again
+        #20 t = 1; // Continuous toggling
+        #10 t = 0; // Hold state
+        #10 reset = 1; // Apply reset
+        #10 reset = 0; t = 1; // Resume toggling
+        #20 $finish; // End simulation
+    end
+endmodule
