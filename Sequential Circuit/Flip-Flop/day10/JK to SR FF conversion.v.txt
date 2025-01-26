@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling case
+module JK_to_SR_FF_conversion(
+    input J, K, clock, reset,
+    output reg Q
+    );
+    reg S, R;      // Internal signals for S and R
+    
+    always @(posedge clock or posedge reset) begin
+        if(reset) begin
+            Q <= 1'b0;
+        end
+        else begin
+            // Derive S and R from J and K
+            S = J & ~Q;
+            R = K & Q;
+            if(S && !R) 
+                Q <= 1'b1; //set
+            else if(!S && R) 
+                Q <= 1'b0; // reset
+        end
+     end
+endmodule
