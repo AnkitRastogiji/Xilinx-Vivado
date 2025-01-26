@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling method
+module SR_to_T_conversion_FF(
+    input t, clock, reset,
+    output reg q   //The complementary output Qbar is optional since it can be derived directly as ~Q.
+    );
+    wire S, R;              
+    // Derive S and R using combinational logic
+    assign S = t & ~q;      
+    assign R = t & q; 
+    
+    always @(posedge clock or posedge reset) begin
+        if(reset) 
+            q <= 1'b0;
+        else begin
+            if(S && !R) 
+                q <= 1'b1; // set
+            else if(!S && R) 
+                q <= 1'b0; // reset
+        end
+    end
+endmodule
