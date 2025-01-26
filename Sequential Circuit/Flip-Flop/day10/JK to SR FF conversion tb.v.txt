@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+
+module JK_to_SR_FF_TB();
+    reg J, K, clock, reset; 
+    wire Q;     
+    // Instantiate the Unit Under Test (UUT)
+    JK_to_SR_FF uut (
+        .J(J),
+        .K(K),
+        .clock(clock),
+        .reset(reset),
+        .Q(Q)
+    );
+
+    initial begin
+        clock = 0;              
+        forever #5 clock = ~clock; 
+    end
+    initial begin
+        // Initialize inputs
+        reset = 1; J = 0; K = 0;
+        #10 reset = 0; // De-assert reset
+        #10 J = 1; K = 0;
+        #10 J = 0; K = 1;
+        #10 J = 0; K = 0;
+        #10 J = 1; K = 1;
+        #10 reset = 1;
+        #10 reset = 0; J = 1; K = 1;
+        #20 $finish; 
+    end
+    initial begin
+        $monitor("Time: %0t | J: %b | K: %b | clock: %b | reset: %b | Q: %b", 
+                 $time, J, K, clock, reset, Q);
+    end
+endmodule
