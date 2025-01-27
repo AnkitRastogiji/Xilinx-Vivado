@@ -1,0 +1,27 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling 
+module D_to_SR_FF(
+    input S, R, clock, reset,
+    output Q
+    );
+    wire D;
+    assign D = (S & ~R) | (~R & Q);
+    
+    D_FF D_FF1(.D(D), .clock(clock), .reset(reset), .Q(Q));
+endmodule
+
+module D_FF(
+    input D, clock, reset,
+    output reg Q
+    );
+    always @(posedge clock or posedge reset) begin
+        if(reset) begin
+            // non blocking ass.  Q is updated on the next clock cycle.
+            // It allows other parts of the design to continue executing without waiting for the assignment to complete.
+            Q <= 0;
+        end
+        else begin
+            Q <= D; // if reset is not active
+        end
+    end
+endmodule
