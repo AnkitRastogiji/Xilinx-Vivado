@@ -1,0 +1,32 @@
+`timescale 1ns / 1ps
+
+// D to JK Flip-Flop Conversion Module
+module D_to_JK_FF(
+    input J, K, clock, reset,
+    output Q
+);
+    wire D;
+    // Correct D equation for JK to D conversion
+    assign D = (J & ~Q) | (~K & Q);
+    // Instantiate the D Flip-Flop
+    D_FF D_FF1(
+        .D(D), 
+        .clock(clock), 
+        .reset(reset), 
+        .Q(Q)
+    );
+endmodule
+
+// D Flip-Flop Module
+module D_FF(
+    input D, clock, reset,
+    output reg Q
+);
+    always @(posedge clock or posedge reset) begin
+        if (reset) begin
+            Q <= 0; // Reset Q to 0
+        end else begin
+            Q <= D; // Update Q on clock edge
+        end
+    end
+endmodule
