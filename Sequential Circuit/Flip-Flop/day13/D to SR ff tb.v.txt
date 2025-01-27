@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+
+module tb_D_to_SR_FF();
+    reg S, R, clock, reset;
+    wire Q;
+    
+    D_to_SR_FF uut(.S(S), .R(R), .clock(clock), .reset(reset), .Q(Q));
+    initial begin 
+        clock = 0;
+        forever #5 clock = ~clock;
+    end
+    initial begin
+        // Initialize signals
+        reset = 0; S = 0; R = 0;
+        #10 reset = 1;
+        #10 reset = 0;
+        #10 S = 0; R = 0;
+        #10 S = 0; R = 1;
+        #10 S = 1; R = 0;
+        #10 S = 1; R = 1;
+        #10 $finish;
+        end
+endmodule
