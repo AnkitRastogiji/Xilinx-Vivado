@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module tb_JK_to_D_FF();
+    reg D, clock, reset;
+    wire Q;
+    
+    JK_to_D_FF uut(.D(D), .clock(clock), .reset(reset), .Q(Q));
+    initial begin
+        clock = 0;
+        forever #5 clock = ~clock;
+    end
+    initial begin
+        reset = 1; D = 0;
+        #10 
+        reset = 0; 
+        #10 D = 1;
+        #10 D = 0;
+        #10 D = 1;
+        #10 D = 0;
+        #20 $finish;
+    end
+endmodule
