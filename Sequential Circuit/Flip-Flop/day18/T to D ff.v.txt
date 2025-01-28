@@ -1,0 +1,26 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling method
+module T_to_D_FF(
+    input D, clock, reset,
+    output Q
+    );
+    wire T;
+    assign T = (Q ^ D);
+    T_FF T_FF1(.T(T), .clock(clock), .reset(reset), .Q(Q));
+endmodule
+// T FF module 
+module T_FF(
+    input T, clock, reset,
+    output reg Q
+    );
+    always @(posedge clock or posedge reset) begin
+        if(reset) begin
+            Q <= 0;
+        end
+        else begin
+            if(T) begin
+                Q <= ~Q;
+            end
+        end
+    end
+endmodule
