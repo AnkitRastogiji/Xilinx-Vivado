@@ -1,0 +1,22 @@
+`timescale 1ns / 1ps
+
+module T_to_JK_FF_tb();
+    reg J, K, clock, reset;
+    wire Q;
+    
+    T_to_JK_FF uut(.J(J), .K(K), .clock(clock), .reset(reset), .Q(Q));
+        initial begin
+            clock = 0;
+            forever #5 clock = ~clock;
+        end
+        initial begin
+            reset = 0; J = 0; K = 0; // Initialize inputs
+            #10 reset = 1;          // Apply reset
+            #10 reset = 0;          // Release reset
+            #10 J = 0; K = 0;       // No Change
+            #10 J = 1; K = 0;       // set Q
+            #10 J = 0; K = 1;       // reset Q
+            #10 J = 1; K = 1;       // invalid state SR FF, but handled
+            #10 $finish;            // End simulation
+    end
+endmodule
