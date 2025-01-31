@@ -1,0 +1,35 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling 
+module up_counter_4bit(
+    input clock, clear,
+    output wire q3, q2, q1, q0
+    );    
+    JK_ff j1(.J(1), .K(1), .clock(clock), .clear(clear), .q(q0));
+    // j1 (LSB Flip-Flop) toggles on every rising edge of clock.
+    JK_ff j2(.J(1), .K(1), .clock(~q0), .clear(clear), .q(q1));
+    //j2 toggles when q0 transitions from 1 → 0 (~q0)
+    JK_ff j3(.J(1), .K(1), .clock(~q1), .clear(clear), .q(q2));
+    // j3 toggles when q1 transitions from 1 → 0 (~q1)
+    JK_ff j4(.J(1), .K(1), .clock(~q2), .clear(clear), .q(q3));
+    // j4 (MSB Flip-Flop) toggles when q2 transitions from 1 → 0 (~q2).
+endmodule
+
+// JK ff module
+module JK_ff(
+    input J, K, clock, clear,
+    output reg q
+    );
+    always @(posedge clock or posedge clear) begin
+        if(clear) begin
+            q <= 0;
+        end
+        else begin 
+            case({J, K})
+                2'b00: q <= q;
+                2'b01: q <= 0;
+                2'b10: q <= 1;
+                2'b11: q <= ~q;
+            endcase
+        end
+     end
+endmodule
