@@ -1,0 +1,36 @@
+`timescale 1ns / 1ps
+
+module tb_UP_Down_counter_4bit();
+    reg clock, clear, up_down;
+    wire [3:0] q;
+
+    // Instantiate the counter module
+    UP_Down_counter_4bit uut (
+        .clock(clock),
+        .clear(clear),
+        .up_down(up_down),
+        .q(q)
+    );
+
+    // Clock generation (50 MHz => 20 ns period)
+    always #10 clock = ~clock;
+
+    initial begin
+        // Initialize signals
+        clock = 0;
+        clear = 1; // Apply reset initially
+        up_down = 1; // Start with up counting
+
+        #20 clear = 0; // Release reset after some time
+
+        // Count Up (0 → 1 → 2 → 3...)
+        #100 up_down = 0; // Switch to down counting
+
+        // Count Down (... → 3 → 2 → 1 → 0)
+        #100 clear = 1; // Apply reset
+        #20 clear = 0;  // Release reset again
+
+        #100 $finish; // End simulation
+    end
+
+endmodule
