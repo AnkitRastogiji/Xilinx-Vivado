@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+
+module tb_down_counter_4bit();
+    reg clock, clear;
+    wire [3:0] q;
+    down_counter_4bit uut(.clock(clock), .clear(clear), .q(q));
+    
+    initial begin
+        clock = 1;
+        forever #10 clock = ~clock;
+    end
+    initial begin
+        clear = 1;
+        #15 clear = 0;
+        #400 $finish;
+    end
+endmodule
