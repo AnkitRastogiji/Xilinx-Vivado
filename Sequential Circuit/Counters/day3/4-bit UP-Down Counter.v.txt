@@ -1,5 +1,6 @@
 //`timescale 1ns / 1ps
 // Using behavioral modeling method
+// 2nd method
 module UP_Down_counter_4bit(
    input clock, clear, up_down,
    output reg [3:0] q
@@ -17,7 +18,6 @@ endmodule
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-// 2nd method
 module UP_Down_counter_4bit(
     input clock, clear, up_down,
     output wire q3, q2, q1, q0
