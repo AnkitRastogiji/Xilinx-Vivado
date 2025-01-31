@@ -1,0 +1,46 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling method
+module down_counter_4bit(
+   input clock, clear,
+   output [3:0] q
+   );
+   JK_ff J1(.J(1), .K(1), .clock(clock), .clear(clear), .q(q[0]));
+   JK_ff J2(.J(1), .K(1), .clock(q[0]), .clear(clear), .q(q[1]));
+   JK_ff J3(.J(1), .K(1), .clock(q[1]), .clear(clear), .q(q[2]));
+   JK_ff J4(.J(1), .K(1), .clock(q[2]), .clear(clear), .q(q[3]));
+    
+endmodule
+// JK ff module 
+module JK_ff(
+   input J, K, clear, clock,
+   output reg q
+   );
+   always @(posedge clock or posedge clear) begin
+       if(clear) begin
+           q <= 0;
+       end
+       else begin
+           case({J, K})
+               2'b00: q <= q;
+               2'b01: q <= 0;
+               2'b10: q <= 1;
+               2'b11: q <= ~q;
+            endcase
+        end
+    end
+         
+endmodule
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// 2nd method
+module down_counter_4bit(
+    input clock, clear,
+    output reg [3:0] q
+    );
+    always @(posedge clock or posedge clear) begin
+        if(clear)  q <= 4'b1111;
+        else  q <= q - 1;
+    end
+endmodule
+
