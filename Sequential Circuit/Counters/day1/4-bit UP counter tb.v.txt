@@ -1,0 +1,17 @@
+`timescale 1ns / 1ps
+
+module tb_up_counter_4bit();
+    reg clear, clock;
+    wire q0, q1, q2, q3;
+    
+    up_counter_4bit uut(.q0(q0), .q1(q1), .q2(q2), .q3(q3), .clock(clock), .clear(clear));
+    initial begin 
+        clock = 0;
+        forever #10 clock = ~clock;
+    end
+    initial begin
+        clear = 1;
+        #25 clear = 0; // Release reset after more than one clock cycle
+        #400 $finish;
+        end
+endmodule
