@@ -1,0 +1,52 @@
+`timescale 1ns / 1ps
+// Using behavioral modeling method
+// 2nd method
+module Ring_Counter(
+    input clock, reset,
+    output reg [3:0] q
+    );
+    
+    always @(posedge clock) begin
+        if(reset) begin
+            q <= 4'b1000; // initila state
+        end
+        else begin
+            q <= {q[2 : 0], q[3]}; // rotate left
+        end
+    end
+endmodule
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+`timescale 1ns / 1ps
+module D_FF(
+   input D, clock, reset,
+   output reg q
+);
+   always @(posedge clock or posedge reset) begin
+       if (reset) 
+           q <= 0;
+       else
+           q <= D;
+   end
+endmodule
+
+module Ring_Counter(
+   input clock, reset,
+   output wire [3:0] q
+);
+   wire [3:0] d;
+    
+   assign d = {q[2:0], q[3]}; // Feedback for Ring Counter
+
+   // Instantiate 4 D Flip-Flops
+   D_FF d1(d[0], clock, reset, q[0]);
+   D_FF d2(d[1], clock, reset, q[1]);
+   D_FF d3(d[2], clock, reset, q[2]);
+   D_FF d4(d[3], clock, reset, q[3]);
+
+   // Ensure the ring counter starts with "1000"
+   assign q = reset ? 4'b1000 : q;
+    
+endmodule
+
