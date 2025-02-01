@@ -1,0 +1,18 @@
+`timescale 1ns / 1ps
+
+module tb_Ring_Counter();
+    reg clock, reset;
+    wire [3:0] q;
+    
+    Ring_Counter uut(.clock(clock), .reset(reset), .q(q));
+    initial begin
+        clock = 1;
+        forever #10 clock = ~clock;
+    end
+    initial begin
+        clock = 0; reset = 1;
+        #15 reset = 0;
+        #200 $finish;
+    end
+endmodule
+ 
